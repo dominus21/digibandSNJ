@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca de Banda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="login-screen">
+    <h1>Biblioteca de Banda</h1>
+    <p>Introduce la clave para continuar.</p>
+
+    <form id="login-form">
+      <input id="password" type="password" placeholder="Clave de acceso" required>
+      <button type="submit">Acceder</button>
+      <p id="error-message"></p>
+    </form>
+  </main>
+
+  <main id="library-screen" hidden>
+    <header class="library-header">
+      <a class="brand" href="#">Biblioteca <strong>SNJ</strong></a>
+      <form id="search-form" class="search-box">
+        <input id="score-search" type="search" placeholder="Buscar partituras">
+        <button class="search-button" type="submit" aria-label="Buscar">⌕</button>
+      </form>
+      <div id="search-suggestions" class="search-suggestions" hidden></div>
+      <button id="logout-button" type="button">Cerrar sesión</button>
+    </header>
+
+    <div class="library-layout">
+      <aside class="library-sidebar">
+        <div class="sidebar-heading">Mi biblioteca</div>
+        <div class="sidebar-link selected">Todas las partituras <span>12</span></div>
+        <a id="religious-link" class="sidebar-link category-link" href="#religiosa">Música religiosa <span>2</span></a>
+        <a class="sidebar-link category-link" data-category="cumbia" href="#cumbia">Cumbia y folklore <span>1</span></a>
+        <a class="sidebar-link category-link" data-category="himnos" href="#himnos">Himnos patrios y cívicos <span>6</span></a>
+        <a class="sidebar-link category-link" data-category="miscelaneo" href="#miscelaneo">Misceláneo <span>1</span></a>
+        <a class="sidebar-link category-link" data-category="clasica" href="#clasica">Música clásica y ópera <span>2</span></a>
+      </aside>
+
+      <section class="scores-area" id="scores">
+        <div class="section-intro"><div><p class="eyebrow">Biblioteca de partituras</p><h1>Todo el repertorio de la banda</h1><input class="library-placeholder" type="text" placeholder="Escribe aquí para buscar una partitura"></div></div>
+        <div id="category-grid" class="score-grid">
+          <a class="category-card library-category" data-category="religiosa" href="#religiosa"><span class="category-icon">✦</span><span><strong>Música religiosa</strong><small>2 repertorios</small></span></a>
+          <a class="category-card library-category" data-category="cumbia" href="#cumbia"><span class="category-icon">♫</span><span><strong>Cumbia y folklore</strong><small>1 repertorio</small></span></a>
+          <a class="category-card library-category" data-category="himnos" href="#himnos"><span class="category-icon">⚑</span><span><strong>Himnos patrios y cívicos</strong><small>6 repertorios</small></span></a>
+          <a class="category-card library-category" data-category="miscelaneo" href="#miscelaneo"><span class="category-icon">✧</span><span><strong>Misceláneo</strong><small>1 repertorio</small></span></a>
+          <a class="category-card library-category" data-category="clasica" href="#clasica"><span class="category-icon">♬</span><span><strong>Música clásica y ópera</strong><small>2 repertorios</small></span></a>
+        </div>
+      </section>
+
+      <aside class="details-panel"><div class="panel-art">♫</div><p class="eyebrow">Partitura seleccionada</p><h2>Marcha SNJ</h2><p class="panel-copy">Banda completa</p><div class="panel-rule"></div><p class="panel-label">Última modificación</p><p class="panel-value">Hoy, 10:24</p></aside>
+    </div>
+
+    <section id="religious-screen" class="category-screen" hidden>
+      <button id="back-to-library" class="back-button" type="button">← Volver a la biblioteca</button>
+      <p class="eyebrow">Categoría</p>
+      <h1>Música religiosa</h1>
+      <p class="section-description">Repertorio religioso de la banda.</p>
+      <div id="category-scores" class="category-grid"></div>
+    </section>
+
+    <section id="score-viewer" class="score-viewer" hidden>
+      <div class="viewer-toolbar">
+        <button id="back-to-category" class="back-button" type="button">← Volver a la categoría</button>
+        <div class="viewer-tools">
+          <label for="instrument-select">Instrumento</label>
+          <select id="instrument-select"><option value="Trompeta">Trompeta</option></select>
+          <button id="download-score" class="viewer-action" type="button">Descargar</button>
+          <button id="print-score" class="viewer-action" type="button">Imprimir</button>
+        </div>
+      </div>
+      <div class="viewer-layout">
+        <div id="score-pages" class="sheet-stage"></div>
+        <aside class="viewer-details"><p class="eyebrow">Partitura</p><h1 id="viewer-title">Pescador de hombres</h1><p id="viewer-instrument" class="panel-copy">Trompeta</p><div class="panel-rule"></div><p class="panel-label">Archivo</p><p id="viewer-pages" class="panel-value">1 página disponible</p><p class="viewer-note">Selecciona un instrumento para consultar su partitura.</p></aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
