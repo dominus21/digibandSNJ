@@ -20,12 +20,15 @@
 
   <main id="library-screen" hidden>
     <header class="library-header">
+      <img class="library-logo" src="Multimedia/logo.png" alt="Logo de la Biblioteca SNJ">
       <a class="brand" href="#">Biblioteca <strong>SNJ</strong></a>
-      <form id="search-form" class="search-box">
-        <input id="score-search" type="search" placeholder="Buscar partituras">
-        <button class="search-button" type="submit" aria-label="Buscar">⌕</button>
-      </form>
-      <div id="search-suggestions" class="search-suggestions" hidden></div>
+      <div class="search-container">
+        <form id="search-form" class="search-box" autocomplete="off">
+          <input id="score-search" type="search" placeholder="Buscar partituras" autocomplete="off">
+          <button class="search-button" type="submit" aria-label="Buscar">⌕</button>
+        </form>
+        <div id="search-suggestions" class="search-suggestions" hidden></div>
+      </div>
       <button id="logout-button" type="button">Cerrar sesión</button>
     </header>
 
@@ -41,7 +44,24 @@
       </aside>
 
       <section class="scores-area" id="scores">
-        <div class="section-intro"><div><p class="eyebrow">Biblioteca de partituras</p><h1>Todo el repertorio de la banda</h1><input class="library-placeholder" type="text" placeholder="Escribe aquí para buscar una partitura"></div></div>
+        <div class="section-intro">
+          <div class="intro-copy">
+            <p class="eyebrow">Biblioteca de partituras</p>
+            <h1>Todo el repertorio de la banda</h1>
+          </div>
+          <aside class="music-moment" aria-live="polite">
+            <img id="instrument-logo" class="instrument-logo" src="Multimedia/logos/clarinete.png" alt="Clarinete">
+            <p id="instrument-name" class="instrument-name">Clarinete</p>
+            <p id="music-quote">Cada ensayo convierte el esfuerzo en armonía.</p>
+            <small>Encuentra tu próxima interpretación.</small>
+          </aside>
+        </div>
+        <div class="library-overview" aria-label="Resumen de la biblioteca">
+          <div><strong>12</strong><span>repertorios</span></div>
+          <div><strong>5</strong><span>categorías</span></div>
+          <div><strong>7</strong><span>instrumentos</span></div>
+          <p>Selecciona una categoría para comenzar</p>
+        </div>
         <div id="category-grid" class="score-grid">
           <a class="category-card library-category" data-category="religiosa" href="#religiosa"><span class="category-icon">✦</span><span><strong>Música religiosa</strong><small>2 repertorios</small></span></a>
           <a class="category-card library-category" data-category="cumbia" href="#cumbia"><span class="category-icon">♫</span><span><strong>Cumbia y folklore</strong><small>1 repertorio</small></span></a>

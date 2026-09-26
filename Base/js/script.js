@@ -24,9 +24,40 @@ const viewerPageCount = document.querySelector("#viewer-pages");
 const downloadScore = document.querySelector("#download-score");
 const printScore = document.querySelector("#print-score");
 let currentImageUrls = [];
-const searchInputs = document.querySelectorAll("#score-search, .library-placeholder");
+const searchInputs = document.querySelectorAll("#score-search");
 const searchForm = document.querySelector("#search-form");
 const searchSuggestions = document.querySelector("#search-suggestions");
+const instrumentLogo = document.querySelector("#instrument-logo");
+const instrumentName = document.querySelector("#instrument-name");
+const musicQuote = document.querySelector("#music-quote");
+
+const instrumentMoments = [
+  { name: "Clarinete", image: "Multimedia/logos/clarinete.png", phrase: "Cada ensayo convierte el esfuerzo en armonía." },
+  { name: "Saxofón", image: "Multimedia/logos/saxo.png", phrase: "La música empieza donde termina la duda." },
+  { name: "Trombón", image: "Multimedia/logos/trombon.png", phrase: "Una banda unida transforma sonidos en recuerdos." },
+  { name: "Trompeta", image: "Multimedia/logos/trompeta.png", phrase: "Tu instrumento tiene una voz: haz que cuente." }
+];
+
+let instrumentMomentIndex = 0;
+
+function showNextMusicMoment() {
+  instrumentMomentIndex = (instrumentMomentIndex + 1) % instrumentMoments.length;
+  const nextMoment = instrumentMoments[instrumentMomentIndex];
+  instrumentLogo.classList.add("phrase-changing");
+  instrumentName.classList.add("phrase-changing");
+  musicQuote.classList.add("phrase-changing");
+  window.setTimeout(() => {
+    instrumentLogo.src = nextMoment.image;
+    instrumentLogo.alt = nextMoment.name;
+    instrumentName.textContent = nextMoment.name;
+    musicQuote.textContent = nextMoment.phrase;
+    instrumentLogo.classList.remove("phrase-changing");
+    instrumentName.classList.remove("phrase-changing");
+    musicQuote.classList.remove("phrase-changing");
+  }, 180);
+}
+
+window.setInterval(showNextMusicMoment, 10000);
 
 function filterLibrary(query) {
   const normalizedQuery = query.trim().toLowerCase();
@@ -218,9 +249,25 @@ downloadScore.addEventListener("click", () => {
 
 printScore.addEventListener("click", () => {
   const printWindow = window.open("", "_blank");
-  printWindow.document.write(`<title>${viewerTitle.textContent} - ${viewerInstrument.textContent}</title>`);
+  printWindow.document.write(`<title>${viewerTitle.textContent} - ${viewerInstrument.textContent}</title>
+    <style>
+      @page { size: A4 portrait; margin: 8mm; }
+      html, body { margin: 0; padding: 0; }
+      .print-page {
+        display: flex;
+        width: 100%;
+        height: 281mm;
+        align-items: center;
+        justify-content: center;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+      }
+      .print-page:last-child { break-after: auto; page-break-after: auto; }
+      .print-page img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+    </style>`);
   currentImageUrls.forEach((url) => {
-    printWindow.document.write(`<img src="${url}" alt="Partitura">`);
+    printWindow.document.write(`<section class="print-page"><img src="${url}" alt="Partitura"></section>`);
   });
   printWindow.document.write("<script>window.onload = () => window.print();<\/script>");
   printWindow.document.close();
