@@ -69,7 +69,18 @@ function filterLibrary(query) {
 }
 
 function findSong(songName) {
-  return Object.entries(categories).flatMap(([categoryId, category]) => category.songs.map((song) => ({ ...song, categoryId }))).find((song) => song.name === songName);
+  const normalizedName = songName.trim().toLowerCase();
+  return Object.entries(categories).flatMap(([categoryId, category]) => category.songs.map((song) => ({ ...song, categoryId }))).find((song) => song.name.toLowerCase() === normalizedName);
+}
+
+function openSong(song) {
+  if (!song || !scoreFiles[song.name]) return false;
+
+  const instruments = Object.keys(scoreFiles[song.name]);
+  instrumentSelect.innerHTML = instruments.map((instrument) => `<option value="${instrument}">${instrument}</option>`).join("");
+  searchSuggestions.hidden = true;
+  showScoreViewer(song.name, instruments[0], song.categoryId);
+  return true;
 }
 
 function renderSearchSuggestions(query) {
@@ -285,6 +296,9 @@ searchInputs.forEach((input) => {
 
 searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  const song = findSong(searchInputs[0].value);
+  if (openSong(song)) return;
+
   filterLibrary(searchInputs[0].value);
   renderSearchSuggestions(searchInputs[0].value);
 });
@@ -294,12 +308,7 @@ searchSuggestions.addEventListener("click", (event) => {
   if (!suggestion) return;
 
   const song = findSong(suggestion.dataset.song);
-  if (!song || !scoreFiles[song.name]) return;
-
-  const instruments = Object.keys(scoreFiles[song.name]);
-  instrumentSelect.innerHTML = instruments.map((instrument) => `<option value="${instrument}">${instrument}</option>`).join("");
-  searchSuggestions.hidden = true;
-  showScoreViewer(song.name, instruments[0], song.categoryId);
+  openSong(song);
 });
 
 logoutButton.addEventListener("click", () => {
